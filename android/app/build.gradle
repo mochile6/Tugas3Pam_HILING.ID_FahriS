@@ -3,7 +3,7 @@ apply from: "../../node_modules/react-native-vector-icons/fonts.gradle"
 
 import com.android.build.OutputFile
 
-/**
+/** Fahri Setiawan Coba coba tapi berhasil juga <3  pecinta kucing lokal ""
  * The react.gradle file registers a task for each build variant (e.g. bundleDebugJsAndAssets
  * and bundleReleaseJsAndAssets).
  * These basically call `react-native bundle` with the correct arguments during the Android build

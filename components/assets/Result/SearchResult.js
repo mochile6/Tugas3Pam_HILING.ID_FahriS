@@ -2,6 +2,7 @@ import React from 'react'
 import { View, Text, StyleSheet, Colors, Image } from "react-native"
 import { Maskapai, Jadwal, Bandara } from '../../../db/database'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import resultStyle from './StyleSearchResult'
 
 const SearchResult = ({data}) => {
     let available = true
@@ -37,22 +38,19 @@ const SearchResult = ({data}) => {
                     return x.maskapai_id == printJadwal.maskapai_id
                 })
                 
-                let capitalizeTheFirstLetterOfEachWord = (words) => {
+                let KapitalFirstsletter = (words) => {
                     let separateWord = words.toLowerCase().split(' ');
-                    for (let i = 0; i < separateWord.length; i++) {
-                       separateWord[i] = separateWord[i].charAt(0).toUpperCase() +
-                       separateWord[i].substring(1);
-                    }
-                    return separateWord.join(' ');
+                    return separateWord.map((text) => text[0].toUpperCase() + text.slice(1)  ).join(' ');
+                    
                 }
     
                 if(available == true){
                     return(
                         <View style={resultStyle.box} key={i}>
                             <View style={resultStyle.upperText}>
-                                <Text style={resultStyle.text}>{capitalizeTheFirstLetterOfEachWord(data.keberangkatan)}</Text>
+                                <Text style={resultStyle.text}>{KapitalFirstsletter(data.keberangkatan)}</Text>
                                 <Text style={resultStyle.text}> - </Text>
-                                <Text style={resultStyle.text}>{capitalizeTheFirstLetterOfEachWord(data.tujuan)}</Text>
+                                <Text style={resultStyle.text}>{KapitalFirstsletter(data.tujuan)}</Text>
                             </View>
                             
                             <View style={resultStyle.bodyBox}>
@@ -73,7 +71,7 @@ const SearchResult = ({data}) => {
         }else{
             return(
                 <View style={resultStyle.boxNotAvail}>
-                    <Text style={resultStyle.textNotAvail}>Maaf, jadwal penerbangan tidak tersedia</Text>
+                    <Text style={resultStyle.textNotAvail}>Maaf, jadwal penerbangan tidak tersedia </Text>
                     <MaterialCommunityIcons 
                         style={resultStyle.userIcon}
                         name="emoticon-sad-outline"
@@ -92,69 +90,5 @@ const SearchResult = ({data}) => {
         </View>
     )
 }
-
-const resultStyle = StyleSheet.create({
-    notAvailable:{
-        alignItems: 'center',
-    }, 
-    box:{
-        backgroundColor: '#fff',
-        borderRadius: 20,
-        padding: 10,
-        width: '80%',
-        left: '10%',
-        shadowColor: '#000',
-        elevation: 5,
-        marginTop: 10,
-    },
-    boxNotAvail:{
-        backgroundColor: '#fff',
-        borderRadius: 10,
-        padding: 10,
-        width: '80%',
-        left: '10%',
-        shadowColor: '#000',
-        elevation: 5,
-        top: '100%',
-        alignItems: 'center',
-    },
-    textNotAvail:{
-        textAlign: 'center',
-    },
-    userIcon: {
-        marginTop: 25,
-        fontSize: 60,
-        marginRight:20,
-    },
-    upperText:{
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        marginLeft: 30,
-        marginRight: 30,
-    },
-    bodyBox:{
-        marginTop: 10,
-        alignContent: 'flex-start',
-    },  
-    Image:{
-        width: null,
-        resizeMode: 'contain',
-        height: 50,
-        marginRight:150,
-    },
-    underText:{
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        marginLeft: 30,
-        marginRight: 30,
-    },
-    text:{
-        fontWeight: 'bold',
-    },
-    textBlue:{
-        fontWeight: 'bold',
-        color: 'blue',
-    }
-})
 
 export default SearchResult
